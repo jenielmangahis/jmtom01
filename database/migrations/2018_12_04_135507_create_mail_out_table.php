@@ -15,11 +15,11 @@ class CreateMailOutTable extends Migration
     {
         Schema::create('mail_out', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('uid', 10);
+            $table->string('uid',10)->unique();
             $table->string('from');
             $table->string('to');
-            $table->string('cc');
-            $table->string('bcc');
+            $table->string('cc')->nullable();
+            $table->string('bcc')->nullable();
             $table->string('subject');
             $table->longText('body');
             $table->longText('text');
