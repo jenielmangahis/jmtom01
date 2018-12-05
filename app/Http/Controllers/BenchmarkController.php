@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Mail;
 use App\MailOut;
 use App\MailQueue;
+use DB;
 
 class BenchmarkController extends Controller
 {
@@ -49,8 +50,21 @@ class BenchmarkController extends Controller
     */
     function testMailQueueModel()
     {
+        //Fetch mailQueue setting
         $mailQueue = DB::table('mail_queue')->where('id', '1')->first();
+        //Fetch mailOut data from last sent id
         $mailOut   = DB::table('mail_out')->where('id >', $mailQueue->last)->limit($mailQueue->sent);
-        print_r($mailQueue);
+        //loop mailOut data
+        $total_sent = 0;
+        foreach( $mailOut as $m ){
+            //Send mail
+            $total_sent++;
+            print_r($m);
+        }
+        
+        $mailQueue->last    = $m->id; //Update mailQueue - save last id in mailOut sent
+        $mailQueue->total   = $mailQueue->total + $total_sent; //Update mailQueue - update total sent
+        
+        exit;
     }
 }
