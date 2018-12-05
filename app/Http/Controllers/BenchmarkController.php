@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+use Mail;
 use App\MailOut;
+use App\MailQueue
 
 class BenchmarkController extends Controller
 {
@@ -20,18 +22,35 @@ class BenchmarkController extends Controller
     function testMailOutModel()
     {
     	echo "<h2>Test MailOut Model</h2>";
+        $uid        = "896-63-4";
+        $from       = "admin@test.com";
+        $to         = "person@person.com";
+        $Subject    = "Sample Subject";
+        $body       = "This a sample content";
+        $html       = "<p>This is a sample content</p>";
+        $text       = "This is a sample text";
 
     	$mo = new MailOut;
-	    $mo->uid      = "896-63-4";
-	    $mo->from     = "admin@test.com";
-	    $mo->to  	  = 'person@person.com';
+	    $mo->uid      = $uid;
+	    $mo->from     = $from;
+	    $mo->to  	  = $to;
 	    //$mo->cc  	  = '';
 	    //$mo->bcc    = '';
-	    $mo->subject  = 'Sample Subject';
-	    $mo->body  	  = 'body';
-	    $mo->text  	  = 'text...';
-	    $mo->html  	  = 'htmls..<br /> this is only a tes <hr />';
+	    $mo->subject  = $subject;
+	    $mo->body  	  = $body;
+	    $mo->text  	  = $text;
+	    $mo->html  	  = $html;
 	    $mo->save(); 
+    }
 
+    /*
+     * Benchmark testing for "mail_queue" table
+     * Test Adding Records
+    */
+    function testMailQueueModel()
+    {
+        $mailQueue = DB::table('mail_queue')->where('id', '1')->first();
+        print_r($mailQueue);
+        exit;
     }
 }

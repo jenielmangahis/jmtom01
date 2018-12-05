@@ -19,3 +19,4 @@ Route::get('/', function () {
  * Controller to test model crud function (add,edit & delete) function
 */
 Route::get('benchmark/testMailOutModel', ['as'=>'benchmark/testMailOutModel','uses'=>'BenchmarkController@testMailOutModel']);
+Route::get('benchmark/testMailQueueModel', ['as'=>'benchmark/testMailQueueModel','uses'=>'BenchmarkController@testMailQueueModel']);
