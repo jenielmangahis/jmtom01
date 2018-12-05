@@ -7,7 +7,10 @@ use Illuminate\Http\Request;
 use Mail;
 use App\MailOut;
 use App\MailQueue;
+//use Illuminate\Support\Facades\Mail;
+use App\Mail\MailTest;
 use DB;
+
 
 class BenchmarkController extends Controller
 {
@@ -91,5 +94,14 @@ class BenchmarkController extends Controller
 	        }
         }
 
+    }
+
+    function testEmailSending()
+    {
+    	echo '<h2>Test Email Sending</h2>';
+    	echo '<hr />';
+    	$data = array();
+        Mail::to('bryann.revina@gmail.com')
+            ->send(new MailTest($data));    	
     }
 }
