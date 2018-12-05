@@ -45,13 +45,51 @@ class BenchmarkController extends Controller
     }
 
     /*
-     * Benchmark testing for "mail_queue" table
+     * Benchmark
      * Test Adding Records
     */
     function testMailQueueModel()
     {
-        $mailQueue = DB::table('mail_queue')->where('id', '1')->first();
-        //$mailOut   = DB::table('mail_out')->where('id >', $mailQueue->last)->limit($mailQueue->sent);
-        print_r($mailQueue);
+        //Fetch mailQueue setting
+        $mail_queue_id 	= 1;
+        $mailQueue 		= MailQueue::where('id', '=', $mail_queue_id)->first();
+
+        if($mailQueue) {
+
+	        //Fetch mailOut data from last sent id
+	        $mailOut = MailOut::where('id', '>', $mailQueue->last)->limit($mailQueue->sent)->get();
+	        if($mailOut) {
+
+		        if(!empty($mailOut->toArray())) {
+			        //loop mailOut data
+			        $total_sent = 0;
+			        $last_id    = 0;
+			        foreach( $mailOut->toArray() as $mkey => $m ){
+
+			        	$id 	 = $m['id'];
+			        	$uid 	 = $m['uid'];
+			        	$from 	 = $m['from'];
+			        	$to 	 = $m['to'];
+			        	$cc      = $m['cc'];
+			        	$subject = $m['subject'];
+			        	$body    = $m['body'];
+
+			            /*
+						 * Send Email Here
+			            */
+
+			            $last_id = $id;
+			            $total_sent++;
+			        }
+
+			        $mailQueue->last    = $last_id; //Update mailQueue - save last id in mailOut sent
+			        $mailQueue->total   = $mailQueue->sent + $total_sent; //Update mailQueue - update total sent
+			        $mailQueue->save();	       
+
+		        }
+ 	
+	        }
+        }
+
     }
 }
