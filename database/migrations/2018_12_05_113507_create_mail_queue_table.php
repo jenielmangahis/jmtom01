@@ -15,10 +15,11 @@ class CreateMailQueueTable extends Migration
     {
         Schema::create('mail_queue', function (Blueprint $table) {
             $table->increments('id');
-            $table->timestamps();
             $table->integer('last');
             $table->integer('sent');
             $table->integer('total');
+            $table->timestamps();
+            $table->softDeletes();
         });
     }
 

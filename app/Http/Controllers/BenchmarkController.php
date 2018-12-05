@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 
 use Mail;
 use App\MailOut;
-use App\MailQueue
+use App\MailQueue;
 
 class BenchmarkController extends Controller
 {
@@ -25,7 +25,7 @@ class BenchmarkController extends Controller
         $uid        = "896-63-4";
         $from       = "admin@test.com";
         $to         = "person@person.com";
-        $Subject    = "Sample Subject";
+        $subject    = "Sample Subject";
         $body       = "This a sample content";
         $html       = "<p>This is a sample content</p>";
         $text       = "This is a sample text";
@@ -52,6 +52,5 @@ class BenchmarkController extends Controller
         $mailQueue = DB::table('mail_queue')->where('id', '1')->first();
         $mailOut   = DB::table('mail_out')->where('id >', $mailQueue->last)->limit($mailQueue->sent);
         print_r($mailQueue);
-        exit;
     }
 }
