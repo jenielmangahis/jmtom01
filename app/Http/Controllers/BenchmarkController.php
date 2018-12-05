@@ -50,6 +50,7 @@ class BenchmarkController extends Controller
     function testMailQueueModel()
     {
         $mailQueue = DB::table('mail_queue')->where('id', '1')->first();
+        $mailOut   = DB::table('mail_out')->where('id >', $mailQueue->last)->limit($mailQueue->sent);
         print_r($mailQueue);
         exit;
     }
