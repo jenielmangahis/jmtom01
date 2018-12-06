@@ -103,8 +103,10 @@ class BenchmarkController extends Controller
     	$data = array();
         /*Mail::to('bryann.revina@gmail.com')
             ->send(new MailTest($data));*/
-        Mail::to('bryann.revina@gmail.com')
-            ->queue(new MailTest($data));    	
+        $job = (new SendEmailJob()
+            ->delay(Carbon::now()->addSeconds(5))
+        );
+        dispatch($job);	
     }
 
     function mailQue()
