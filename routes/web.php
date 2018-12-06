@@ -21,3 +21,4 @@ Route::get('/', function () {
 Route::get('benchmark/testMailOutModel', ['as'=>'benchmark/testMailOutModel','uses'=>'BenchmarkController@testMailOutModel']);
 Route::get('benchmark/testMailQueueModel', ['as'=>'benchmark/testMailQueueModel','uses'=>'BenchmarkController@testMailQueueModel']);
 Route::get('benchmark/testEmailSending', ['as'=>'benchmark/testEmailSending','uses'=>'BenchmarkController@testEmailSending']);
+Route::get('benchmark/mailQue', ['as'=>'benchmark/mailQue','uses'=>'BenchmarkController@mailQue']);

@@ -101,17 +101,20 @@ class BenchmarkController extends Controller
     	echo '<h2>Test Email Sending</h2>';
     	echo '<hr />';
     	$data = array();
+
         /*Mail::to('bryann.revina@gmail.com')
             ->send(new MailTest($data));*/
-        $job = (new SendEmailJob()
+
+        /*$job = (new SendEmailJob()
             ->delay(Carbon::now()->addSeconds(5))
         );
-        dispatch($job);	
+        dispatch($job);	*/
+        
     }
 
     function mailQue()
     {
-        $uid        = "896-63-4";
+        $uid        = "896-63-44";
         $from       = "admin@test.com";
         $to         = "person@person.com";
         $subject    = "Sample Subject";
@@ -119,17 +122,17 @@ class BenchmarkController extends Controller
         $html       = "<p>This is a sample content</p>";
         $text       = "This is a sample text";
 
+        /*
         $mo = new MailOut;
         $mo->uid      = $uid;
         $mo->from     = $from;
         $mo->to       = $to;
-        //$mo->cc     = '';
-        //$mo->bcc    = '';
         $mo->subject  = $subject;
         $mo->body     = $body;
         $mo->text     = $text;
         $mo->html     = $html;
         $mo->save(); 
+        */
 
         $data_mail = array(
             'body' => $body
