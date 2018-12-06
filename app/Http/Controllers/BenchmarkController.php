@@ -4,11 +4,14 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-use Mail;
 use App\MailOut;
 use App\MailQueue;
+
 //use Illuminate\Support\Facades\Mail;
-use App\Mail\MailTest;
+//use Mail;
+//use App\Mail\MailTest;
+
+use App\Jobs\SendEmailJob;
 use DB;
 
 
@@ -109,12 +112,15 @@ class BenchmarkController extends Controller
             ->delay(Carbon::now()->addSeconds(5))
         );
         dispatch($job);	*/
-        
+
     }
 
+    /*
+	 * Test for Mail Queue
+    */
     function mailQue()
     {
-        $uid        = "896-63-44";
+        $uid        = "896-96";
         $from       = "admin@test.com";
         $to         = "person@person.com";
         $subject    = "Sample Subject";
@@ -122,8 +128,11 @@ class BenchmarkController extends Controller
         $html       = "<p>This is a sample content</p>";
         $text       = "This is a sample text";
 
-        /*
-        $mo = new MailOut;
+        //SendEmailJob::dispatch();
+        SendEmailJob::dispatch()
+                ->delay(now()->addSeconds(5));
+
+        /*$mo = new MailOut;
         $mo->uid      = $uid;
         $mo->from     = $from;
         $mo->to       = $to;
@@ -131,13 +140,8 @@ class BenchmarkController extends Controller
         $mo->body     = $body;
         $mo->text     = $text;
         $mo->html     = $html;
-        $mo->save(); 
-        */
+        $mo->save();*/ 
 
-        $data_mail = array(
-            'body' => $body
-        );
-        Mail::to($to)
-            ->queue(new MailTest($data_mail));
+        echo "Send Email Queue";
     }
 }

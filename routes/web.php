@@ -16,6 +16,11 @@ Route::get('/', function () {
 });
 
 /*
+ * All mail queue process here
+*/
+Route::get('sendMailQueue', ['as'=>'sendMailQueue','uses'=>'MailQueueController@sendMailQueue']);
+
+/*
  * Controller to test model crud function (add,edit & delete) function
 */
 Route::get('benchmark/testMailOutModel', ['as'=>'benchmark/testMailOutModel','uses'=>'BenchmarkController@testMailOutModel']);

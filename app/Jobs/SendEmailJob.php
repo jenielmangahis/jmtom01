@@ -2,6 +2,9 @@
 
 namespace App\Jobs;
 
+use Mail;
+use App\Mail\MailTest;
+
 use Illuminate\Bus\Queueable;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Queue\InteractsWithQueue;
@@ -29,6 +32,12 @@ class SendEmailJob implements ShouldQueue
      */
     public function handle()
     {
-        //
+        $body = "This is the body";
+        $data_mail = array(
+            'body' => $body
+        );
+        $to = "test@globizcloud.com";
+        Mail::to($to)
+            ->queue(new MailTest($data_mail));
     }
 }
