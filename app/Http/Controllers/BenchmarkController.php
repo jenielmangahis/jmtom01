@@ -106,4 +106,33 @@ class BenchmarkController extends Controller
         Mail::to('bryann.revina@gmail.com')
             ->queue(new MailTest($data));    	
     }
+
+    function mailQue()
+    {
+        $uid        = "896-63-4";
+        $from       = "admin@test.com";
+        $to         = "person@person.com";
+        $subject    = "Sample Subject";
+        $body       = "This a sample content";
+        $html       = "<p>This is a sample content</p>";
+        $text       = "This is a sample text";
+
+        $mo = new MailOut;
+        $mo->uid      = $uid;
+        $mo->from     = $from;
+        $mo->to       = $to;
+        //$mo->cc     = '';
+        //$mo->bcc    = '';
+        $mo->subject  = $subject;
+        $mo->body     = $body;
+        $mo->text     = $text;
+        $mo->html     = $html;
+        $mo->save(); 
+
+        $data_mail = array(
+            'body' => $body
+        );
+        Mail::to($to)
+            ->queue(new MailTest($data_mail));
+    }
 }
