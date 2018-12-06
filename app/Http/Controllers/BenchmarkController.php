@@ -101,7 +101,9 @@ class BenchmarkController extends Controller
     	echo '<h2>Test Email Sending</h2>';
     	echo '<hr />';
     	$data = array();
+        /*Mail::to('bryann.revina@gmail.com')
+            ->send(new MailTest($data));*/
         Mail::to('bryann.revina@gmail.com')
-            ->send(new MailTest($data));    	
+            ->queue(new MailTest($data));    	
     }
 }
