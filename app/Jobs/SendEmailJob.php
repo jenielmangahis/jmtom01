@@ -36,8 +36,16 @@ class SendEmailJob implements ShouldQueue
         $data_mail = array(
             'body' => $body
         );
-        $to = "test@globizcloud.com";
+        $uid = "1di6doe8ft";
+        $to  = "test@globizcloud.com";
         Mail::to($to)
+            ->getSwiftMessage()
+            ->getHeaders()
+            ->addTextHeader('X-Mailgun-Dkim', 'true');
+            ->addTextHeader('X-Mailgun-Track', 'true');
+            ->addTextHeader('X-Mailgun-Track-Clicks', 'true');
+            ->addTextHeader('X-Mailgun-Track-Opens', 'true');
+            ->addTextHeader('X-Mailgun-Variables', '{"uid": "' . $uid . '"}');
             ->queue(new MailTest($data_mail));
     }
 }
